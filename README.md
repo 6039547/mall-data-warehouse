@@ -24,37 +24,37 @@
 
 #### 项目结构说明
 
-├─azkaban azkaban job文件
-│
-├─flume-interceptor  采集flume拦截器，用来区分日志类型与简单数据清洗
-│
-├─hive
-│  └─gmall
-│      ├─用户行为数仓 用户行为数仓hive sql
-│      │      
-│      └─系统业务数仓 系统业务数仓hive sql
-│              
-├─hive-function hive自定义函数
-│              
-├─log-collector 生成日志文件项目，打包成jar包后通过命令运行，将标准输出重定向至log文件即可
-│              
-├─mysql mysql结构、函数
-│      
-├─shell 数仓中常用脚本
-│  ├─ads ads层加载数据脚本
-│  │      
-│  ├─dwd dwd层加载数据脚本
-│  │      
-│  ├─dws dws层加载数据脚本
-│  │      
-│  ├─ods ods层加载数据脚本
-│  │      
-│  ├─sqoop mysql导入导出数据脚本
-│  │      
-│  ├─tools 集群公共脚本
-│  │      
-│  └─utils 通用工具脚本
-│          
+├─azkaban azkaban job文件 <br>
+│<br>
+├─flume-interceptor  采集flume拦截器，用来区分日志类型与简单数据清洗<br>
+│<br>
+├─hive<br>
+│  └─gmall<br>
+│      ├─用户行为数仓 用户行为数仓hive sql<br>
+│      │      <br>
+│      └─系统业务数仓 系统业务数仓hive sql<br>
+│              <br>
+├─hive-function hive自定义函数<br>
+│              <br>
+├─log-collector 生成日志文件项目，打包成jar包后通过命令运行，将标准输出重定向至log文件即可<br>
+│              <br>
+├─mysql mysql结构、函数<br>
+│      <br>
+├─shell 数仓中常用脚本<br>
+│  ├─ads ads层加载数据脚本<br>
+│  │      <br>
+│  ├─dwd dwd层加载数据脚本<br>
+│  │      <br>
+│  ├─dws dws层加载数据脚本<br>
+│  │      <br>
+│  ├─ods ods层加载数据脚本<br>
+│  │      <br>
+│  ├─sqoop mysql导入导出数据脚本<br>
+│  │      <br>
+│  ├─tools 集群公共脚本<br>
+│  │      <br>
+│  └─utils 通用工具脚本<br>
+│          <br>
 └─spring-boot-echarts-master 可视化web项目
                         
 
