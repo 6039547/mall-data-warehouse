@@ -10,7 +10,15 @@
 
 #### 系统架构
 
-系统数据流程如下图：
+**系统数据流程如下图：**
+![系统数据流程图.jpeg](https://upload-images.jianshu.io/upload_images/19968652-9322de317b9e13c6.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**数仓分层如下图：**
+![数仓分层图.png](https://upload-images.jianshu.io/upload_images/19968652-d134b6a945bee9c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**hive表关系图如下图：**
+![hive表关系图.jpeg](https://upload-images.jianshu.io/upload_images/19968652-72e54b3f7ca3076d.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 #### 技术架构
 
