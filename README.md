@@ -22,12 +22,42 @@
 | druid| 2.7.10 | imply方式安装 |
 | hbase| 1.2.1 |  |
 
-#### 请求参数说明
+#### 项目结构说明
 
-| 请求参数 | 类型 | 必填 | 参数说明 | 示例 |
-| :--- | :--- | :--- | :--- | :--- |
-| username | String | true | 登录用户名 |carozhu |
-| password | String | true | 登录密码   |123456   |
+├─azkaban azkaban job文件
+│
+├─flume-interceptor  采集flume拦截器，用来区分日志类型与简单数据清洗
+│
+├─hive
+│  └─gmall
+│      ├─用户行为数仓 用户行为数仓hive sql
+│      │      
+│      └─系统业务数仓 系统业务数仓hive sql
+│              
+├─hive-function hive自定义函数
+│              
+├─log-collector 生成日志文件项目，打包成jar包后通过命令运行，将标准输出重定向至log文件即可
+│              
+├─mysql mysql结构、函数
+│      
+├─shell 数仓中常用脚本
+│  ├─ads ads层加载数据脚本
+│  │      
+│  ├─dwd dwd层加载数据脚本
+│  │      
+│  ├─dws dws层加载数据脚本
+│  │      
+│  ├─ods ods层加载数据脚本
+│  │      
+│  ├─sqoop mysql导入导出数据脚本
+│  │      
+│  ├─tools 集群公共脚本
+│  │      
+│  └─utils 通用工具脚本
+│          
+└─spring-boot-echarts-master 可视化web项目
+                        
+
 
 #### 返回参数说明
 
