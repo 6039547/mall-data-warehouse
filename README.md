@@ -134,12 +134,135 @@
     <td>分区名（时间）</td>
     <td>业务数仓dws层用户行为宽表自动导入数据</td>
   </tr>
-           <tr>
+   <tr>
     <td>dws_sale.sh</td>
     <td>$1</td>
     <td>分区名（时间）</td>
     <td>业务数仓dws层用户购买商品明细宽表自动导入数据</td>
   </tr>
+     <tr>
+    <td>ads_back_log.sh</td>
+    <td>$1</td>
+    <td>分区名（时间）</td>
+    <td>ads层回流用户指标分析数据导入脚本</td>
+  </tr>
+  <tr>
+    <td>ads_continuity_log.sh</td>
+    <td>$1</td>
+    <td>分区名（时间）</td>
+    <td>ads层最近七天连续活跃三天用户指标分析数据导入脚本</td>
+  </tr>
+    <tr>
+    <td>ads_continuity_wk_log.sh</td>
+    <td>$1</td>
+    <td>分区名（时间）</td>
+    <td>ads层最近三周活跃用户指标分析数据导入脚本</td>
+  </tr>
+      <tr>
+    <td>ads_db_gmv.sh</td>
+    <td>$1</td>
+    <td>分区名（时间）</td>
+    <td>ads层GMV指标分析数据导入脚本</td>
+  </tr>
+      <tr>
+    <td>ads_slient_log.sh</td>
+    <td>$1</td>
+    <td>分区名（时间）</td>
+    <td>ads层沉默用户指标分析数据导入脚本</td>
+  </tr>
+        <tr>
+    <td>ads_wastage_log.sh</td>
+    <td>$1</td>
+    <td>分区名（时间）</td>
+    <td>ads层流失用户指标分析数据导入脚本</td>
+  </tr>
+          <tr>
+    <td>ads_uv_log.sh</td>
+    <td>$1</td>
+    <td>分区名（时间）</td>
+    <td>ads层活跃用户指标分析数据导入脚本</td>
+  </tr>
+  <tr>
+    <td rowspan="2">sqoop_import.sh</td>
+    <td>$1</td>
+    <td>hdfs导入指定mysql表数据，可选：表名、all（全部导入）</td>
+    <td rowspan="2">hdfs导入mysql数据脚本</td>
+  </tr>
+  <tr>
+    <td>$2</td>
+    <td>时间</td>
+  </tr>
+   <tr>
+    <td>sqoop_export.sh</td>
+    <td>$1</td>
+    <td>hive导出指定hive表数据，可选：ads_uv_count(日活指标表)、ads_user_action_convert_day（漏斗分析指标表）、ads_gmv_sum_day（GVM指标表）、all（上述三个全部导出）</td>
+    <td>hive导出ads层数据至mysql脚本</td>
+  </tr>
+     <tr>
+    <td rowspan="2">lg.sh</td>
+    <td>$1</td>
+    <td>每条日志数据产生的延迟时间(毫秒)</td>
+    <td rowspan="2">生成日志文件脚本，生成数据的时间与当前服务器时间一致</td>
+  </tr>
+   <tr>
+    <td>$2</td>
+    <td>生成日志数据条数</td>
+  </tr>
+       <tr>
+    <td>zk.sh</td>
+    <td>$1</td>
+    <td>可选：start（启动）、stop（停止）、status（查看状态）</td>
+    <td>群起zookeeper脚本</td>
+  </tr>
+         <tr>
+    <td>f1.sh</td>
+    <td>$1</td>
+    <td>可选：start（启动）、stop（停止）</td>
+    <td>群起采集flume脚本</td>
+  </tr>
+           <tr>
+    <td>f2.sh</td>
+    <td>$1</td>
+    <td>可选：start（启动）、stop（停止）</td>
+    <td>启动消费flume脚本</td>
+  </tr>
+  <tr>
+    <td>kf.sh</td>
+    <td>$1</td>
+    <td>可选：start（启动）、stop（停止）</td>
+    <td>群起kafka脚本</td>
+  </tr>
+  <tr>
+    <td>km.sh</td>
+    <td>$1</td>
+    <td>可选：start（启动）、stop（停止）</td>
+    <td>启动Kafka Manager脚本</td>
+  </tr>
+  <tr>
+    <td>hv.sh</td>
+    <td>$1</td>
+    <td>可选：start（启动）、stop（停止）</td>
+    <td>启动hive metastore服务脚本，注：当启动卡住可以直接Ctrl+C退出启动界面，再使用jps命令查看进程是否启动，进程启动即可。</td>
+  </tr>
+    <tr>
+    <td>cluster.sh</td>
+    <td>$1</td>
+    <td>可选：start（启动）、stop（停止）</td>
+    <td>群起用户行为数据采集架构脚本</td>
+  </tr>
+   <tr>
+    <td>xcall.sh</td>
+    <td>$1</td>
+    <td>要执行的命令</td>
+    <td>集群执行统一命令脚本</td>
+  </tr>
+   <tr>
+    <td>xsync</td>
+    <td>$1</td>
+    <td>文件绝对路径</td>
+    <td>集群分发文件脚本</td>
+  </tr>
+  
 </table>
 #### hive 表说明
 
