@@ -1,0 +1,3 @@
+type=command
+dependencies=ads
+command=/bin/sqoop_export.sh ads_gmv_sum_day 

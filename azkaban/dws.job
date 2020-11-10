@@ -1,0 +1,4 @@
+type=command
+do_date=${dt}
+dependencies=dwd
+command=/bin/dws_db_wide.sh ${do_date}

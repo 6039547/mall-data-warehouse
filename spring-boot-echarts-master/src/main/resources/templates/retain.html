@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+	<!-- Bootstrap Styles-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FontAwesome Styles-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+        <!-- Custom Styles-->
+    <link href="assets/css/custom-styles.css" rel="stylesheet" />
+     <!-- Google Fonts-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><i class="fa fa-comments"></i> <strong>尚硅谷可视化平台</strong></a>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right">
+
+            </ul>
+        </nav>
+        <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <script></script>
+                    <li>
+                        <a href="#"><i class="fa fa-dashboard"></i>数仓统计<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level in">
+                            <li>
+                                <a href="active"><i class="fa fa-dashboard"></i>活动统计</a>
+                            </li>
+                            <li>
+                                <a class="active-menu" href="retain"><i class="fa fa-table"></i>留存率统计</a>
+                            </li>
+                            <li>
+                                <a href="convert"><i class="fa fa-edit"></i>转化率统计</a>
+                            </li>
+                            <li>
+                                <a href="gmv"><i class="fa fa-edit"></i>GMV展示</a>
+                            </li>
+                            <li>
+                                <a href="map"><i class="fa fa-edit"></i>地区统计</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+			 <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-header">
+                            <small>留存率统计</small>
+                        </h1>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">时间</th>
+                            <th scope="col">新增用户</th>
+                            <th scope="col">1天后</th>
+                            <th scope="col">2天后</th>
+                            <th scope="col">3天后</th>
+                            <th scope="col">4天后</th>
+                            <th scope="col">5天后</th>
+                            <th scope="col">6天后</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table">
+
+                    </tbody>
+                </table>
+                 <!-- /. ROW  -->
+				 <footer></footer>
+				</div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+      <!-- Bootstrap Js -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Js -->
+    <script src="assets/js/jquery.metisMenu.js"></script>
+      <!-- Custom Js -->
+    <script src="assets/js/custom-scripts.js"></script>
+
+    <script type="text/javascript">
+
+            $.ajax({
+                type : "get",
+                async : false,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+                url : "queryRetainData",    //请求发送到TestServlet处
+                data : {},
+                dataType : "json",        //返回数据形式为json
+                success: function(data){
+                    $('#table').empty();   //清空resText里面的所有内容
+                    var html = '';
+                    $.each(data, function(index,obj){
+                        html += '<tr>'
+                            + '<td>'+obj.stat_date+'</th>'
+                            + '<td>'+obj.new_mid_count+'</td>';
+
+                        if(obj.d1 != 0){
+                            html += '<td>'+(obj.d1*100).toFixed(2)+'%</td>'
+                        }
+                        if(obj.d2 != 0){
+                            html += '<td>'+(obj.d2*100).toFixed(2)+'%</td>'
+                        }
+                        if(obj.d3 != 0){
+                            html += '<td>'+(obj.d3*100).toFixed(2)+'%</td>'
+                        }
+                        if(obj.d4 != 0){
+                            html += '<td>'+(obj.d4*100).toFixed(2)+'%</td>'
+                        }
+                        if(obj.d5 != 0){
+                            html += '<td>'+(obj.d5*100).toFixed(2)+'%</td>'
+                        }
+                        if(obj.d6 != 0){
+                            html += '<td>'+(obj.d6*100).toFixed(2)+'%</td>'
+                        }
+                        html += '</tr>'
+                    });
+                    $('#table').html(html);
+                }
+            });
+    </script>
+   
+</body>
+</html>

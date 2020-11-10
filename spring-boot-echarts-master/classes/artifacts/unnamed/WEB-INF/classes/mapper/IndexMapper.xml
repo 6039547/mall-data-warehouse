@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <mapper namespace="com.demo.mapper.IndexMapper">
+        <select id="findAll" resultType="Index">
+            SELECT
+            id,
+            name,
+            num
+            FROM
+            my_chart01
+        </select>
+</mapper>

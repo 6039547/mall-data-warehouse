@@ -1,0 +1,330 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+	<!-- Bootstrap Styles-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FontAwesome Styles-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+     <!-- Morris Chart Styles-->
+   
+        <!-- Custom Styles-->
+    <link href="assets/css/custom-styles.css" rel="stylesheet" />
+     <!-- Google Fonts-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+     <!-- TABLE STYLES-->
+    <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Js -->
+    <script src="assets/js/jquery.metisMenu.js"></script>
+    <!-- DATA TABLE SCRIPTS -->
+    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
+
+
+    <!--日期插件-->
+    <link href="assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="assets/js/echarts.min.js"></script>
+    <!-- Custom Js -->
+    <script src="assets/js/custom-scripts.js"></script>
+</head>
+<body>
+<div id="wrapper">
+    <nav class="navbar navbar-default top-navbar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><i class="fa fa-comments"></i> <strong>尚硅谷可视化平台</strong></a>
+        </div>
+
+        <ul class="nav navbar-top-links navbar-right">
+
+        </ul>
+    </nav>
+    <!--/. NAV TOP  -->
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <script></script>
+                <li>
+                    <a href="#"><i class="fa fa-dashboard"></i>数仓统计<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level in">
+                        <li>
+                            <a href="active"><i class="fa fa-dashboard"></i>活动统计</a>
+                        </li>
+                        <li>
+                            <a href="retain"><i class="fa fa-table"></i>留存率统计</a>
+                        </li>
+                        <li>
+                            <a href="convert"><i class="fa fa-edit"></i>转化率统计</a>
+                        </li>
+                        <li>
+                            <a class="active-menu" href="gmv"><i class="fa fa-edit"></i>GMV展示</a>
+                        </li>
+                        <li>
+                            <a href="map"><i class="fa fa-edit"></i>地区统计</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+        <!-- /. NAV SIDE  -->
+    <div id="page-wrapper" >
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="page-header">GMV展示</h3>
+                </div>
+            </div>
+            <!-- /. ROW  -->
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div id="main1" style="width:550px;height:400px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div id="main2" style="width:550px;height:400px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $.ajax({
+        type : "get",
+        async : false,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url : "queryGMVOrder",    //请求发送到TestServlet处
+        data : {},
+        dataType : "json",        //返回数据形式为json
+        success: function(data){
+            showAnalysis1(data);
+        }
+    });
+    /*$.ajax({
+        type : "get",
+        async : false,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url : "queryRetainData",    //请求发送到TestServlet处
+        data : {},
+        dataType : "json",        //返回数据形式为json
+        success: function(data){
+            showAnalysis2();
+        }
+    });*/
+    function showAnalysis1(json) {
+        var myChart = echarts.init(document.getElementById('main1'));
+        var xdata = [];
+        var ycount = [];
+        var yamount = [];
+        $.each(json,function(index,obj){
+            xdata.push(obj.quarter);
+            ycount.push(obj.gmv_count)
+            yamount.push(obj.gmv_amount)
+        });
+        //console.log(json)
+        //var group = json.data.stat[1].options;
+        var option = {
+            title: {
+                text: 'GMV统计',
+                subtext: ''
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#283b56'
+                    }
+                }
+            },
+            legend: {
+                data:['订单量', '销售额']
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: {readOnly: false},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            dataZoom: {
+                show: false,
+                start: 0,
+                end: 100
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: true,
+                    data: (function (){
+                        var now = new Date();
+                        var res = xdata;
+                        return res;
+                    })()
+                },
+                {
+                    type: 'category',
+                    boundaryGap: true,
+                    data: (function (){
+                        var res = [];
+                        var len = 10;
+                        var res = xdata;
+                        return res;
+                    })()
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    scale: true,
+                    name: '订单量'
+                },
+                {
+                    type: 'value',
+                    scale: true,
+                    name: '销售额'
+                }
+            ],
+            series: [
+                {
+                    name:'销售额',
+                    type:'bar',
+                    xAxisIndex: 1,
+                    yAxisIndex: 1,
+                    data:(function (){
+                        var res = yamount;
+
+                        return res;
+                    })()
+                },
+                {
+                    name:'订单量',
+                    type:'line',
+                    data:(function (){
+                        var res = ycount;
+
+                        return res;
+                    })()
+                }
+            ]
+        };
+        myChart.setOption(option);
+    }
+    function showAnalysis2(json) {
+        var myChart = echarts.init(document.getElementById('main2'));
+        //var group = json.data.stat[1].options;
+        var option = {
+            title: {
+                text: 'GMV统计',
+                subtext: ''
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#283b56'
+                    }
+                }
+            },
+            legend: {
+                data:['订单量', '销售额']
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: {readOnly: false},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            dataZoom: {
+                show: false,
+                start: 0,
+                end: 100
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: true,
+                    data: (function (){
+                        var now = new Date();
+                        var res = ['2017Q1','2017Q2','2017Q3','2017Q4'];
+                        return res;
+                    })()
+                },
+                {
+                    type: 'category',
+                    boundaryGap: true,
+                    data: (function (){
+                        var res = [];
+                        var len = 10;
+                        var res = ['2017Q1','2017Q2','2017Q3','2017Q4'];
+                        return res;
+                    })()
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    scale: true,
+                    name: '订单量'
+                },
+                {
+                    type: 'value',
+                    scale: true,
+                    name: '销售额'
+                }
+            ],
+            series: [
+                {
+                    name:'销售额',
+                    type:'bar',
+                    xAxisIndex: 1,
+                    yAxisIndex: 1,
+                    data:(function (){
+                        var res = [2000,1000,400,250];
+
+                        return res;
+                    })()
+                },
+                {
+                    name:'订单量',
+                    type:'line',
+                    data:(function (){
+                        var res = [100,200,300,400];
+                        var len = 0;
+
+                        return res;
+                    })()
+                }
+            ]
+        };
+        myChart.setOption(option);
+    }
+
+</script>
+</body>
+</html>

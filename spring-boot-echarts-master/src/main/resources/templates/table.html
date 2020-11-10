@@ -1,0 +1,408 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+	<!-- Bootstrap Styles-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FontAwesome Styles-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+     <!-- Morris Chart Styles-->
+   
+        <!-- Custom Styles-->
+    <link href="assets/css/custom-styles.css" rel="stylesheet" />
+     <!-- Google Fonts-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+     <!-- TABLE STYLES-->
+    <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Js -->
+    <script src="assets/js/jquery.metisMenu.js"></script>
+    <!-- DATA TABLE SCRIPTS -->
+    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
+
+
+    <!--日期插件-->
+    <link href="assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="assets/js/echarts.min.js"></script>
+    <script type="text/javascript">
+        //重新加载datatable数据
+        function submitCondition() {
+            $("#dataTables-example").DataTable().ajax.reload();
+        }
+        //页面初始化加载datatable数据
+        $(document).ready(function () {
+            //现实饼图一
+            showAnalysis1();
+            //显示饼图二
+            showAnalysis2();
+            //加载日期插件
+            $("#blrz-entry-date-start").datetimepicker({//选择年月日
+                format: 'yyyy-mm-dd',
+                language: 'zh-CN',
+                weekStart: 1,
+                todayBtn: 1,//显示‘今日’按钮
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                minView: 2,  //Number, String. 默认值：0, 'hour'，日期时间选择器所能够提供的最精确的时间选择视图。
+                clearBtn:true,//清除按钮
+                forceParse: 0
+            });
+
+            //保存日期数据
+            $("#blrz-entry-date-start").on('change',function(){
+                var thisEntryDate = $("#blrz-entry-date-start").val();
+            });
+
+            //加载数据表格
+            var data = $('#dataTables-example').dataTable({
+                "processing": true,//刷新的那个对话框
+                "serverSide": true,//服务器端获取数据
+                "searching" : false,//去除搜索框
+                "paging": true,//开启分页
+                "lengthMenu": [ //自定义分页长度
+                    [ 10,20,50,100 ],
+                    [ '10页','20 页', '50 页', '100页' ]
+                ],
+                "ajax": {
+                    "url": "getData",
+                    "dataSrc": "data",
+                    "dataType" : "text",
+                    "data": function (d) {
+                        //alert(d)
+                        /*for(var key in d){
+                            if(key.indexOf("columns")==0||key.indexOf("order")==0||key.indexOf("search")==0){ //以columns开头的参数删除
+                                delete d[key];
+                            }
+                        }*/
+                        d.time = $("#blrz-entry-date-start").val();
+                        d.level = $("#level").val();
+                        d.text = $("#tex").val();
+                        console.log(d)
+                    },
+                    "dataFilter": function (data) {//json是服务器端返回的数据
+                        var json = eval('('+data+')');
+                        showAnalysis1(json.data.stat[1].options)
+                        showAnalysis2(json.data.stat[0].options)
+                        console.log(json)
+                        /*var rows = json.data.rows;
+                        for(var i =0;i<rows.length;i++){
+                            if(rows[i].user_gender == 'M'){
+                                rows[i].user_gender = '女';
+                            }else if(rows[i].user_gender == 'F'){
+                                rows[i].user_gender = '男';
+                            }
+                        }*/
+                        var returnData = {};
+                        returnData.draw = json.draw;
+                        returnData.recordsTotal = json.data.total;//返回数据全部记录
+                        returnData.recordsFiltered = json.data.total;//后台不实现过滤功能，每次查询均视作全部结果
+                        returnData.data = json.data.detail;//返回的数据列表
+                        console.log(returnData)
+                        return returnData;//这几个参数都是datatable需要的，必须要
+                    }
+                },
+                "oLanguage" : { // 国际化配置
+                    "sProcessing" : "正在获取数据，请稍后...",
+                    "sLengthMenu" : "显示 _MENU_ 条",
+                    "sZeroRecords" : "没有找到数据",
+                    "sInfo" : "从 _START_ 到  _END_ 条记录 总记录数为 _TOTAL_ 条",
+                    "sInfoEmpty" : "记录数为0",
+                    "sInfoFiltered" : "(全部记录数 _MAX_ 条)",
+                    "sInfoPostFix" : "",
+                    "sUrl" : "",
+                    "oPaginate" : {
+                        "sFirst" : "第一页",
+                        "sPrevious" : "上一页",
+                        "sNext" : "下一页",
+                        "sLast" : "最后一页"
+                    }
+                },
+                "columns": [
+                    { "data": "user_id" },
+                    { "data": "sku_id" },
+                    { "data": "user_gender" },
+                    { "data": "user_age" },
+                    { "data": "user_level" },
+                    { "data": "order_price" },
+                    { "data": "sku_name" },
+                    { "data": "sku_tm_id" },
+                    { "data": "sku_category1_id" },
+                    { "data": "sku_category2_id" },
+                    { "data": "sku_category3_id" },
+                    { "data": "sku_category1_name" },
+                    { "data": "sku_category2_name" },
+                    { "data": "sku_category3_name" },
+                    { "data": "spu_id" },
+                    { "data": "sku_num" },
+                    { "data": "order_count" },
+                    { "data": "order_amount" },
+                    { "data": "dt" }
+                ]
+            })
+        })
+
+
+        function showAnalysis1(json) {
+            var myChart = echarts.init(document.getElementById('main1'));
+            console.log(json)
+            //var group = json.data.stat[1].options;
+            var option=({
+                title : {
+                    text: '男女比例数据分析',
+                    subtext: '尚硅谷',
+                    x:'center'
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: ['男','女']
+                },
+                series : [
+                    {
+                        name: '占比',
+                        type: 'pie',
+                        radius : '55%',
+                        center: ['50%', '60%'],
+                        data:json,
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            });
+            myChart.setOption(option);
+            /*var time = $("#blrz-entry-date-start").val();
+            var level = $("#sel").val();
+            var text = $("#tex").val();
+            $.ajax({
+                type : "get",
+                async : false,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+                url : "getData?",    //请求发送到TestServlet处
+                dataType : "text",        //返回数据形式为json
+                success : function(result) {
+                    //请求成功时执行该函数内容，result即为服务器返回的json对象
+                    //alert(result)
+                    var obj = eval('(' + result + ')');
+                    //alert(obj.yestoday)
+                    var group = obj.stat[1].options;
+                    if (obj) {
+                        myChart.setOption({        //加载数据图表
+                            series: [
+                                {
+                                    name: '占比',
+                                    type: 'pie',
+                                    radius : '55%',
+                                    center: ['50%', '60%'],
+                                    data:group,
+                                    itemStyle: {
+                                        emphasis: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                        }
+                                    }
+                                }
+                            ]
+                        });
+
+                    }
+
+                }
+            })*/
+        }
+        function showAnalysis2(json) {
+            var myChart = echarts.init(document.getElementById('main2'));
+            //var group = json.data.stat[1].options;
+            var option=({
+                title : {
+                    text: '年龄比例数据分析',
+                    subtext: '尚硅谷',
+                    x:'center'
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: ['20岁以下','20-30岁','30岁以上']
+                },
+                series : [
+                    {
+                        name: '占比',
+                        type: 'pie',
+                        radius : '55%',
+                        center: ['50%', '60%'],
+                        data:json,
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            });
+            myChart.setOption(option);
+        }
+
+    </script>
+    <!-- Custom Js -->
+    <script src="assets/js/custom-scripts.js"></script>
+</head>
+<body>
+<div id="wrapper">
+    <nav class="navbar navbar-default top-navbar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><i class="fa fa-comments"></i> <strong>尚硅谷可视化平台</strong></a>
+        </div>
+
+        <ul class="nav navbar-top-links navbar-right">
+
+        </ul>
+    </nav>
+    <!--/. NAV TOP  -->
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <script></script>
+                <li>
+                    <a href="#"><i class="fa fa-dashboard"></i>系统统计<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="active-menu" href="index"><i class="fa fa-dashboard"></i>每日统计</a>
+                        </li>
+                        <li>
+                            <a href="table"><i class="fa fa-table"></i>数据展示</a>
+                        </li>
+                        <li>
+                            <a href="map"><i class="fa fa-edit"></i>地图展示</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="ui-elements.html"><i class="fa fa-desktop"></i>离线数据</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+        <!-- /. NAV SIDE  -->
+    <div id="page-wrapper" >
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="page-header">商品搜索详情</h3>
+                </div>
+            </div>
+                 <!-- /. ROW  -->
+            <div class="row">
+                <div class="col-md-12">
+					<ol class="breadcrumb">
+                        <li>日期&nbsp;&nbsp;<input  name="entryDate" placeholder="请选择入职日期" id="blrz-entry-date-start" type="text" ></li>
+                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <select id="level" hidden="hidden">
+                                <option value="1">level1</option>
+                                <option value="2">level2</option>
+                                <option value="3">level3</option>
+                                <option value="4">level4</option>
+                                <option value="5">level5</option>
+                                <option value="6">level6</option>
+                                <option value="7">level7</option>
+                                <option value="8">level8</option>
+                                <option value="9">level9</option>
+                                <option value="10">level10</option>
+                            </select>
+                            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关键字&nbsp;&nbsp;<input  name="entryDate" id="tex" type="text" ></li>
+                            <li>&nbsp;&nbsp;&nbsp;&nbsp;<button id="sub" onclick="submitCondition()">查询</button></li>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div id="main1" style="width:500px;height:300px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div id="main2" style="width:500px;height:300px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+               
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>user_id</th>
+                                            <th>sku_id</th>
+                                            <th>user_gender</th>
+                                            <th>user_age</th>
+                                            <th>user_level</th>
+                                            <th>order_price</th>
+                                            <th>sku_name</th>
+                                            <th>sku_tm_id</th>
+                                            <th>sku_category1_id</th>
+                                            <th>sku_category2_id</th>
+                                            <th>sku_category3_id</th>
+                                            <th>sku_category1_name</th>
+                                            <th>sku_category2_name</th>
+                                            <th>sku_category3_name</th>
+                                            <th>spu_id</th>
+                                            <th>sku_num</th>
+                                            <th>order_count</th>
+                                            <th>order_amount</th>
+                                            <th>dt</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

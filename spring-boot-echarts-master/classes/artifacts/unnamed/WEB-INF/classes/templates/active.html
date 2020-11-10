@@ -1,0 +1,360 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <!-- Bootstrap Styles-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="assets/css/custom-styles.css" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <!-- jQuery Js -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Js -->
+    <script src="assets/js/jquery.metisMenu.js"></script>
+    <!-- Morris Chart Js -->
+    <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="assets/js/morris/morris.js"></script>
+
+
+    <script src="assets/js/easypiechart.js"></script>
+    <script src="assets/js/easypiechart-data.js"></script>
+
+
+    <!-- Custom Js -->
+    <script src="assets/js/custom-scripts.js"></script>
+    <script src="assets/js/echarts.min.js"></script>
+
+    <!--日期插件-->
+    <link href="assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><i class="fa fa-comments"></i> <strong>尚硅谷可视化平台</strong></a>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right">
+
+            </ul>
+        </nav>
+        <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+		<div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                <script></script>
+                    <li>
+                        <a href="#"><i class="fa fa-dashboard"></i>数仓统计<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level in">
+                            <li>
+                                <a class="active-menu" href="active"><i class="fa fa-dashboard"></i>活动统计</a>
+                            </li>
+                            <li>
+                                <a href="retain"><i class="fa fa-table"></i>留存率统计</a>
+                            </li>
+                            <li>
+                                <a href="convert"><i class="fa fa-edit"></i>转化率统计</a>
+                            </li>
+                            <li>
+                                <a href="gmv"><i class="fa fa-edit"></i>GMV展示</a>
+                            </li>
+                            <li>
+                                <a href="map"><i class="fa fa-edit"></i>地区统计</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            <div id="page-inner">
+
+
+                <div class="row">
+                    <div class="col-md-12">
+
+						<ol class="breadcrumb">
+                          <li>请选择入职日期<input  name="entryDate" placeholder="请选择入职日期" id="blrz-entry-date-start" type="text" ></li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /. ROW  -->
+
+                <div class="row">
+                    <ul id="total" class="um-page-tabs">
+
+                        <!--<li class="um-page-tab" style="width: 50px; min-width: 162px;">
+                            <div class="um-page-title">新增用户(今日)</div>
+                            <div class="um-page-value">5</div>
+                            <div class="um-page-rate"><span class="um-page-rate-name">昨日 </span><span
+                                    class="um-page-rate-value">0.0%</span><span class="um-page-rate-icon"><i class="iconfont"></i></span></div>
+                        </li>
+                        <li class="um-page-tab active-tab" style="width: 95px; min-width: 162px;">
+                            <div class="um-page-title">启动次数(今日)</div>
+                            <div class="um-page-value">2,702</div>
+                            <div class="um-page-rate"><span class="um-page-rate-name">昨日 </span><span
+                                    class="um-page-rate-value">-2.33% </span><span class="um-page-rate-icon"><i
+                                    class="iconfont indicator-icon-down"></i></span></div>
+                        </li>
+                        <li class="um-page-tab" style="width: 76px; min-width: 162px;">
+                            <div class="um-page-title">时段累计日活(今日)</div>
+                            <div class="um-page-value">804</div>
+                            <div class="um-page-rate"><span class="um-page-rate-name">昨日 </span><span
+                                    class="um-page-rate-value">+0.28% </span><span class="um-page-rate-icon"><i
+                                    class="iconfont indicator-icon-up"></i></span></div>
+                        </li>
+                        <li class="um-page-tab" style="width: 76px; min-width: 162px;">
+                            <div class="um-page-title">分时活跃用户(今日)</div>
+                            <div class="um-page-value">252</div>
+                            <div class="um-page-rate"><span class="um-page-rate-name">昨日 </span><span
+                                    class="um-page-rate-value">+1.49% </span><span class="um-page-rate-icon"><i
+                                    class="iconfont indicator-icon-up"></i></span></div>
+                        </li>-->
+                    </ul>
+                </div>
+				
+			
+				<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+                            <div id="main" style="width: 1100px;height:400px;"></div>
+                        </div>
+					</div>
+                </div>
+				</div>
+            </div>
+        </div>
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <script type="text/javascript">
+
+        $("#blrz-entry-date-start").datetimepicker({//选择年月日
+            format: 'yyyy-mm-dd',
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,//显示‘今日’按钮
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,  //Number, String. 默认值：0, 'hour'，日期时间选择器所能够提供的最精确的时间选择视图。
+
+            clearBtn:true,//清除按钮
+
+            forceParse: 0
+        });
+        var tag = "";
+        var idList = [];
+/*        loadTotal();
+        showAnalysis(tag);*/
+        $("#blrz-entry-date-start").on('change',function(){
+            var thisEntryDate = $("#blrz-entry-date-start").val();
+            loadTotal(thisEntryDate)
+            showAnalysis(tag,thisEntryDate)
+        });
+        loadTotal("")
+        showAnalysis(tag,"")
+            /*setInterval(function () {
+                //alert(tag)
+                loadTotal()
+                showAnalysis(tag)
+            }, 5000)*/
+            function loadTotal(thisEntryDate) {
+                var url = "queryActiveTotalData"
+                if(thisEntryDate != ""){
+                    url = url + "?thisEntryDate=" + thisEntryDate
+                }
+                $.ajax({
+                    type : "get",
+                    async : false,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+                    url : url,    //请求发送到TestServlet处
+                    data : {},
+                    dataType : "json",        //返回数据形式为json
+                    success: function(data){
+                        $('#total').empty();   //清空resText里面的所有内容
+                        var html = '';
+                        //var obj = eval('('+data+')');
+                        //初始化加载
+                        if(tag == ""){
+                            tag = data[0].id;
+                            for(var i = 0;i<data.length;i++){
+                                idList.push(data[i].id);
+                            }
+                        }
+                        $.each(data, function(commentIndex, comment){
+                            var temp = ''
+                            //alert(comment['is_weekend'])
+                            //alert(comment['id'])
+                            if(("N"==comment['is_weekend'])&("wkCount"==comment['id'])){
+                                temp = "不是周节点"
+                            }else if(("Y"==comment['is_weekend'])&("wkCount"==comment['id'])){
+                                temp = "周节点"
+                            }
+                            if(("N"==comment['is_monthend'])&("monCount"==comment['id'])){
+                                temp = "不是月节点"
+                            }else if(("Y"==comment['is_monthend'])&("monCount"==comment['id'])){
+                                temp = "月节点"
+                            }
+                            if(tag == comment['id']){
+
+                                //alert(temp);
+                                html += '<li class="um-page-tab active-tab" id='+comment['id']+' style="width: 50px; min-width: 162px;" onclick="loadData(this,\''+thisEntryDate+'\')">'
+                                    + '<div class="um-page-title">'+comment['title']+'</div>'
+                                    + '<div class="um-page-value">'+comment['totalData']+'</div>'
+                                    + '<div class="um-page-rate"><span class="um-page-rate-name">'+temp+'</span>'
+                                    + '<span class="um-page-rate-value"></span><span class="um-page-rate-icon"><i class="iconfont"></i></span></div></li>'
+
+                            }else{
+                                html += '<li class="um-page-tab" id='+comment['id']+' style="width: 50px; min-width: 162px;" onclick="loadData(this,\''+thisEntryDate+'\')">'
+                                    + '<div class="um-page-title">'+comment['title']+'</div>'
+                                    + '<div class="um-page-value">'+comment['totalData']+'</div>'
+                                    + '<div class="um-page-rate"><span class="um-page-rate-name">'+temp+'</span>'
+                                    + '<span class="um-page-rate-value"></span><span class="um-page-rate-icon"><i class="iconfont"></i></span></div></li>'
+
+                            }
+                        });
+                        $('#total').html(html);
+                    }
+                });
+            }
+
+            function loadData(data,thisEntryDate) {
+                var list = [];
+                for(var i=0;i<idList.length;i++){
+                    list.push(idList[i]);
+                }
+                for(var i=0;i<list.length;i++){
+                    $("#"+list[i]).removeClass("active-tab")
+                }
+                var index = list.indexOf(data.id);
+                if(index <= -1){
+                    alert("数据加载失败")
+                }
+                list.splice(index,1)
+                //alert(list)
+                for(var i=0;i<list.length;i++){
+                    $("#"+list[i]).removeClass("active-tab")
+                }
+                $("#"+data.id).addClass("active-tab")
+                tag = data.id;
+                showAnalysis(tag,thisEntryDate)
+            }
+
+            function showAnalysis(data,thisEntryDate) {
+                var url = "queryActiveData?tag="+data
+                if(thisEntryDate != ""){
+                    url = url + "&thisEntryDate=" + thisEntryDate
+                }
+                var myChart = echarts.init(document.getElementById('main'));
+                var xdata = ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23']
+                // 指定图表的配置项和数据
+                myChart.setOption({
+                    title: {
+                        text: '活动统计'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    /*legend: {
+                        //data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+                        data:['昨天','今天']
+                    },*/
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    toolbox: {
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: xdata
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            name:'日活',
+                            type:'line'
+                        }
+                    ]
+                });
+
+                myChart.showLoading();
+
+                var xnames=[];    //类别数组（实际用来盛放X轴坐标值）
+                var ynums=[];    //总量数组（实际用来盛放Y坐标值）
+
+                $.ajax({
+                    type : "get",
+                    async : false,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+                    url : url,    //请求发送到TestServlet处
+                    data : {},
+                    dataType : "json",        //返回数据形式为json
+                    success : function(data) {
+                        //请求成功时执行该函数内容，result即为服务器返回的json对象
+                        if (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                xnames.push(data[i].date)
+                                ynums.push(data[i].activeCount)
+                            }
+
+                            myChart.hideLoading();    //隐藏加载动画
+                            myChart.setOption({        //加载数据图表
+                            xAxis: {
+                                data: xnames
+                            },
+                            series: [{
+                                name:'昨天',
+                                type:'line',
+                                data:ynums
+                            }]
+                        }
+                    );
+
+                }
+
+                    },
+                    error : function() {
+                        //请求失败时执行该函数
+                        //alert("图表请求数据失败!");
+                        myChart.hideLoading();
+                    }
+                })
+            }
+    </script>
+
+</body>
+
+</html>

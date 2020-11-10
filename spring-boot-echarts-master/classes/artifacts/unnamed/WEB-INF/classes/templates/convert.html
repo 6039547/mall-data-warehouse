@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <!-- Bootstrap Styles-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="assets/css/custom-styles.css" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <!-- jQuery Js -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Js -->
+    <script src="assets/js/jquery.metisMenu.js"></script>
+    <!-- Morris Chart Js -->
+    <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="assets/js/morris/morris.js"></script>
+
+
+    <script src="assets/js/easypiechart.js"></script>
+    <script src="assets/js/easypiechart-data.js"></script>
+
+
+    <!-- Custom Js -->
+    <script src="assets/js/custom-scripts.js"></script>
+    <script src="assets/js/echarts.min.js"></script>
+
+    <!--日期插件-->
+    <link href="assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+
+</head>
+
+<body>
+<div id="wrapper">
+    <nav class="navbar navbar-default top-navbar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><i class="fa fa-comments"></i> <strong>尚硅谷可视化平台</strong></a>
+        </div>
+
+        <ul class="nav navbar-top-links navbar-right">
+
+        </ul>
+    </nav>
+    <!--/. NAV TOP  -->
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <script></script>
+                <li>
+                    <a href="#"><i class="fa fa-dashboard"></i>数仓统计<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level in">
+                        <li>
+                            <a href="active"><i class="fa fa-dashboard"></i>活动统计</a>
+                        </li>
+                        <li>
+                            <a href="retain"><i class="fa fa-table"></i>留存率统计</a>
+                        </li>
+                        <li>
+                            <a class="active-menu" href="convert"><i class="fa fa-edit"></i>转化率统计</a>
+                        </li>
+                        <li>
+                            <a href="gmv"><i class="fa fa-edit"></i>GMV展示</a>
+                        </li>
+                        <li>
+                            <a href="map"><i class="fa fa-edit"></i>地区统计</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+
+    </nav>
+    <!-- /. NAV SIDE  -->
+    <div id="page-wrapper">
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="page-header">转化率漏斗图展示</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <ol class="breadcrumb">
+                      <li>请选择入职日期<input  name="entryDate" placeholder="请选择入职日期" id="blrz-entry-date-start" type="text" ></li>
+                    </ol>
+                </div>
+            </div>
+            <!-- /. ROW  -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div id="main" style="width: 1100px;height:400px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /. WRAPPER  -->
+<!-- JS Scripts-->
+<script type="text/javascript">
+
+    $("#blrz-entry-date-start").datetimepicker({//选择年月日
+        format: 'yyyy-mm-dd',
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,//显示‘今日’按钮
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,  //Number, String. 默认值：0, 'hour'，日期时间选择器所能够提供的最精确的时间选择视图。
+
+        clearBtn:true,//清除按钮
+
+        forceParse: 0
+    });
+
+    $("#blrz-entry-date-start").on('change',function(){
+        var thisEntryDate = $("#blrz-entry-date-start").val();
+        showAnalysis(thisEntryDate);
+    });
+    showAnalysis()
+    function showAnalysis(){
+        var myChart = echarts.init(document.getElementById('main'));
+        // 指定图表的配置项和数据
+        myChart.setOption({
+            title: {
+                text: '漏斗图',
+                subtext: '纯属虚构'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c}%"
+            },
+            toolbox: {
+                feature: {
+                    dataView: {readOnly: false},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            legend: {
+                data: ['展现','点击','访问','咨询','订单']
+            },
+            calculable: true,
+            series: [
+                {
+                    name:'漏斗图',
+                    type:'funnel',
+                    left: '10%',
+                    top: 60,
+                    //x2: 80,
+                    bottom: 60,
+                    width: '80%',
+                    // height: {totalHeight} - y - y2,
+                    min: 0,
+                    max: 100,
+                    minSize: '0%',
+                    maxSize: '100%',
+                    sort: 'descending',
+                    gap: 2,
+                    label: {
+                        show: true,
+                        position: 'inside'
+                    },
+                    labelLine: {
+                        length: 10,
+                        lineStyle: {
+                            width: 1,
+                            type: 'solid'
+                        }
+                    },
+                    itemStyle: {
+                        borderColor: '#fff',
+                        borderWidth: 1
+                    },
+                    emphasis: {
+                        label: {
+                            fontSize: 20
+                        }
+                    },
+                    data: [
+                        {value: 60, name: '访问'},
+                        {value: 40, name: '咨询'},
+                        {value: 20, name: '订单'},
+                        {value: 80, name: '点击'},
+                        {value: 100, name: '展现'}
+                    ]
+                }
+            ]
+        });
+
+    }
+
+    function showAnalysis(data) {
+        var myChart = echarts.init(document.getElementById('main'));
+        // 指定图表的配置项和数据
+        myChart.setOption({
+            title: {
+                text: '漏斗图',
+                subtext: '纯属虚构'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c}%"
+            },
+            toolbox: {
+                feature: {
+                    dataView: {readOnly: false},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            legend: {
+                data: ['展现','点击','访问','咨询','订单']
+            },
+            calculable: true,
+            series: [
+                {
+                    name:'漏斗图',
+                    type:'funnel',
+                    left: '10%',
+                    top: 60,
+                    //x2: 80,
+                    bottom: 60,
+                    width: '80%',
+                    // height: {totalHeight} - y - y2,
+                    min: 0,
+                    max: 100,
+                    minSize: '0%',
+                    maxSize: '100%',
+                    sort: 'descending',
+                    gap: 2,
+                    label: {
+                        show: true,
+                        position: 'inside'
+                    },
+                    labelLine: {
+                        length: 10,
+                        lineStyle: {
+                            width: 1,
+                            type: 'solid'
+                        }
+                    },
+                    itemStyle: {
+                        borderColor: '#fff',
+                        borderWidth: 1
+                    },
+                    emphasis: {
+                        label: {
+                            fontSize: 20
+                        }
+                    },
+                    data: [
+                        {value: 60, name: '访问'},
+                        {value: 40, name: '咨询'},
+                        {value: 20, name: '订单'},
+                        {value: 80, name: '点击'},
+                        {value: 100, name: '展现'}
+                    ]
+                }
+            ]
+        });
+        myChart.showLoading();
+        $.ajax({
+            type : "get",
+            async : false,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+            url : "queryConvertData?tag="+data,    //请求发送到TestServlet处
+            data : {},
+            dataType : "json",        //返回数据形式为json
+            success : function(data) {
+                //请求成功时执行该函数内容，result即为服务器返回的json对象
+                if (data) {
+                    myChart.hideLoading();    //隐藏加载动画
+                    myChart.setOption({        //加载数据图表
+                            series: [{
+                                data:data
+                            }]
+                        }
+                    );
+
+                }
+
+            },
+            error : function() {
+                //请求失败时执行该函数
+                //alert("图表请求数据失败!请选择日期");
+                myChart.hideLoading();
+            }
+        })
+    }
+</script>
+
+</body>
+
+</html>
