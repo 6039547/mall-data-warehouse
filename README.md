@@ -73,22 +73,74 @@
 
 #### 脚本说明
 
-| 名称 | 版本号 | 备注 |
-| :--- | :--- | :--- |
-| hadoop | 2.7.6 |  |
-| jdk | 1.8.0 |  |
-| zookeeper | 3.4.6 |  |
-| flume | 1.7.0 |  |
-| kafka | 2.11-0.11 |  |
-| kafka  manager| 1.3.3 |  |
-| hive| 1.2.1 | 使用tez 0.9.1作为计算引擎 |
-| mysql| 5.6.24 |  |
-| sqoop| 1.4.6 |  |
-| azkaban| 2.5.0 |  |
-| presto| 0.196 |使用yanagishima 18.0作为web页面|
-| druid| 2.7.10 | imply方式安装 |
-| hbase| 1.2.1 |  |
-
+<table>
+  <tr>
+    <th>名称</th>
+    <th>参数</th>
+    <th>参数说明</th>
+    <th>脚本说明</th>
+  </tr>
+  <tr>
+    <td>ods_log.sh</td>
+    <td>$1</td>
+    <td>分区名（时间）</td>
+    <td>行为数仓ods层导入hdfs数据</td>
+  </tr>
+   <tr>
+    <td>ods_log.sh</td>
+    <td>$1</td>
+    <td>分区名（时间）</td>
+    <td>行为数仓ods层导入hdfs数据</td>
+  </tr>
+   <tr>
+    <td>ods_db.sh</td>
+    <td>$1</td>
+    <td>分区名（时间）</td>
+    <td>业务数仓ods层导入hdfs数据</td>
+  </tr>
+   <tr>
+    <td>dwd_start_log.sh</td>
+    <td>$1</td>
+    <td>分区名（时间）</td>
+    <td>行为数仓dwd层启动日志表dwd_start_log自动导入ods层数据</td>
+  </tr>
+         <tr>
+    <td>dwd_base_log.sh</td>
+    <td>$1</td>
+    <td>分区名（时间）</td>
+    <td>行为数仓dwd层事件日志表dwd_base_event_log自动导入ods层数据</td>
+  </tr>
+     <tr>
+    <td>dwd_event_log.sh</td>
+    <td>$1</td>
+    <td>分区名（时间）</td>
+    <td>行为数仓dwd层各个事件表自动导入数据</td>
+  </tr>
+     <tr>
+    <td>dwd_db.sh</td>
+    <td>$1</td>
+    <td>分区名（时间）</td>
+    <td>业务数仓dwd层自动导入数据</td>
+  </tr>
+       <tr>
+    <td>dws_uv_log.sh</td>
+    <td>$1</td>
+    <td>分区名（时间）</td>
+    <td>行为数仓DWS层加载活跃用户明细数据脚本</td>
+  </tr>
+        <tr>
+    <td>dws_db_wide.sh</td>
+    <td>$1</td>
+    <td>分区名（时间）</td>
+    <td>业务数仓dws层用户行为宽表自动导入数据</td>
+  </tr>
+           <tr>
+    <td>dws_sale.sh</td>
+    <td>$1</td>
+    <td>分区名（时间）</td>
+    <td>业务数仓dws层用户购买商品明细宽表自动导入数据</td>
+  </tr>
+</table>
 #### hive 表说明
 
 | code | msg | desc |
