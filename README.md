@@ -4,7 +4,7 @@
 基于hadoop生态搭建的电商数据仓库，整体功能架构包含数据采集、数仓搭建、数据导出、数据可视化等。
 
 
-详情学习攻略请查看
+**详情学习攻略请查看**
 
 [hadoop安装](https://www.jianshu.com/p/8289d35fbe64)
 
@@ -14,7 +14,7 @@
 
 完善中...
 
-项目踩坑请查看
+**项目踩坑请查看**
 
 [Linux卸载安装Mysql踩坑](https://www.jianshu.com/p/2ea8ad862500)
 
@@ -27,7 +27,7 @@
 [hive拒绝连接解决方案](https://www.jianshu.com/p/4c47375a8b02)
 
 
-#### 系统架构
+### 系统架构
 
 **系统数据流程如下图：**
 ![系统数据流程图.jpeg](https://upload-images.jianshu.io/upload_images/19968652-9322de317b9e13c6.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -39,7 +39,7 @@
 ![hive表关系图.jpeg](https://upload-images.jianshu.io/upload_images/19968652-72e54b3f7ca3076d.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
-#### 技术架构
+### 技术架构
 
 | 名称 | 版本号 | 类型 | 说明 |
 | :--- | :--- | :--- | :--- |
@@ -57,7 +57,7 @@
 | druid| 2.7.10 | 数据查询 | imply方式安装 |
 | hbase| 1.2.1 | 数据存储 |  |
 
-#### 项目结构说明
+### 项目结构说明
 
 ├─azkaban azkaban job文件 <br>
 │<br>
@@ -94,11 +94,11 @@
                         
 
 
-#### 集群规划
+### 集群规划
 
 ![集群规划](https://upload-images.jianshu.io/upload_images/19968652-3b94c7f0270aeac0.png?imageMogr2/auto-orient/strip|imageView2/2/w/681/format/webp)
 
-#### 脚本说明
+### 脚本说明
 
 <table>
   <tr>
@@ -291,11 +291,12 @@
   </tr>
   
 </table>
-#### hive 表说明
+
+### hive 表说明
 
 完善中...
 
-#### mysql 表说明 
+### mysql 表说明 
 
 完善中...
 
