@@ -6,7 +6,18 @@
 
 详情学习攻略请查看
 
+[hadoop安装](https://www.jianshu.com/p/8289d35fbe64)
+[hive安装](https://www.jianshu.com/p/49aa4b47070f)
+[hive常用命令](https://www.jianshu.com/p/926197373d6d)
+完善中...
+
 项目踩坑请查看
+
+[Linux卸载安装Mysql踩坑](https://www.jianshu.com/p/2ea8ad862500)
+[Linux报错只读文件系统（集群非法关机、断电）踩坑](https://www.jianshu.com/p/1b93088ff344)
+[sqoop拒绝连接](https://www.jianshu.com/p/74241e4622bb)
+[kafka manager启动失败解决方案](https://www.jianshu.com/p/871a16b705a9)
+[ive拒绝连接解决方案](https://www.jianshu.com/p/4c47375a8b02)
 
 #### 系统架构
 
@@ -274,29 +285,11 @@
 </table>
 #### hive 表说明
 
-| code | msg | desc |
-| :--- | :--- | :--- |
-| 200 | success |  |
+完善中...
 
 #### mysql 表说明 
 
-``` 
-如有特别说明请描述
+完善中...
 
-```
-
----
-
-#### 备注
-``` 
-关于其它错误返回值与错误代码，参见 [Code码说明](#Link)
-
-```
----
-#### Author
-
-| Coder   | 创建时间 | 更新时间 |联系方式 |
-| :---     | :---| :--- | :--- |
-| carozhu  | 2018.4.28 |2018.5.29  |1025807062@qq.com  |
 
 
