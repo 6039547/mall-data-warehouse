@@ -3,33 +3,6 @@
 ## 项目简介
 基于hadoop生态搭建的电商数据仓库，整体功能架构包含数据采集、数仓搭建、数据导出、数据可视化等。
 
-**图片加载失败请查看**
-
-[电商数据仓库项目简介](https://www.jianshu.com/p/24497f64340f)
-
-**详情学习攻略请查看**
-
-[hadoop安装](https://www.jianshu.com/p/8289d35fbe64)
-
-[hive安装](https://www.jianshu.com/p/49aa4b47070f)
-
-[hive常用命令](https://www.jianshu.com/p/926197373d6d)
-
-完善中...
-
-**项目踩坑请查看**
-
-[Linux卸载安装Mysql踩坑](https://www.jianshu.com/p/2ea8ad862500)
-
-[Linux报错只读文件系统（集群非法关机、断电）踩坑](https://www.jianshu.com/p/1b93088ff344)
-
-[sqoop拒绝连接](https://www.jianshu.com/p/74241e4622bb)
-
-[kafka manager启动失败解决方案](https://www.jianshu.com/p/871a16b705a9)
-
-[hive拒绝连接解决方案](https://www.jianshu.com/p/4c47375a8b02)
-
-
 ### 系统架构
 
 **系统数据流程如下图：**
@@ -295,14 +268,5 @@
   </tr>
   
 </table>
-
-### hive 表说明
-
-完善中...
-
-### mysql 表说明 
-
-完善中...
-
 
 
